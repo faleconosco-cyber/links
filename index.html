@@ -6,6 +6,53 @@
 <title>Link na bio · Instituto Rumo</title>
 <meta name="description" content="Instituto Rumo — Orientação Profissional para adolescentes e famílias. Comece pelo diagnóstico que combina com o seu momento.">
 <meta name="theme-color" content="#FDDED5">
+<!-- ================================================================
+     MEDICAO, instalada em 07/10/2026.
+     Ate aqui esta pagina era cega: todo o trafego do Instagram passava por
+     ela e ninguem sabia qual botao ganhava. Os links de saida ja tinham UTM,
+     o que ajuda do outro lado, mas a propria pagina nao media nada.
+
+     GA4 ...... G-FW3VTE6518, a mesma propriedade do site e das landings.
+                Dominio proprio, entao separe por "hostname" no relatorio.
+     Pixel .... 710681929995178, o de dentro do Business, o mesmo do site e
+                das landings. NAO e o 409193991083455 dos quizzes: aqui a
+                pessoa vinda do Instagram vira publico de remarketing da
+                conta de anuncio, e a gaveta de lead dos quizzes fica
+                separada, como ela decidiu.
+     ================================================================ -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FW3VTE6518"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-FW3VTE6518');
+
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+  n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+  document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '710681929995178');
+  fbq('track', 'PageView');
+
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('a[href]').forEach(function (link) {
+      link.addEventListener('click', function () {
+        // O nome do botao sai do proprio utm_content do link, entao botao novo
+        // ja nasce medido sem ninguem lembrar de mexer aqui. Quem nao tem UTM,
+        // como o WhatsApp, cai no "whatsapp" ou no dominio de destino.
+        var destino = link.href;
+        var m = destino.match(/utm_content=([a-z0-9_-]+)/i);
+        var nome = m ? m[1]
+                 : /wa\.me|whatsapp/i.test(destino) ? 'whatsapp'
+                 : (destino.split('/')[2] || 'outro');
+        gtag('event', 'clique_bio', { botao: nome });
+        if (/wa\.me|whatsapp/i.test(destino)) fbq('track', 'Contact');
+      });
+    });
+  });
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Montserrat:wght@400;500;600;700&display=swap">
